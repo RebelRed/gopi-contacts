@@ -18,7 +18,7 @@
         <td><%= person.first_name %></td>
         <td><%= person.last_name %></td>
         <td><%= link_to 'Show', "#" ,class: "sg", id: person.id %></td>
-        <td><%= link_to 'Edit', edit_person_path(person) %></td>
+        <td><%= link_to 'Edit', "#", class: "edited", id: person.id %></td>
         <td><%= link_to 'Destroy', "#", class: "button", id: person.id %></td>
       </tr>
     <% end %>
