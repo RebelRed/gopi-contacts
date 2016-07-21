@@ -16,21 +16,20 @@ $(document).ready(function(){
   })
   
   $(document).delegate('.button','click',function(event){
-    var id = $(this).attr("id")
+    var id = $(this).parent().parent().find(".sg").attr("id")
     $.ajax({
       method : 'DELETE',
       url:  '/people/'+id+'/' ,
-      data: { "name": "guru" },
       dataType: "json"
     }).done(function(){
       $("#"+id).parent().parent().fadeOut();
+    }).error(function(){
+      alert("oops! your internet is screwed ")
     })
   })
 
 
   $(".actions").click(function(){
-    var id = $(this).attr("id");
-    alert(id);
     $.ajax({
       method : 'POST',
       url:  '/people',
@@ -55,11 +54,13 @@ $(document).ready(function(){
       dataType: "json"
       }) .done(function(resu){
        console.log(resu);
-       htmlstri="<p><label for='first_name'>First name</label></p>";
-       htmlstri+="<input id=first_name type=text name=first_name value="+resu.person.first_name+">";
+       htmlstri="<div id='editForm'>";
+       htmlstri+="<p><label for='first_name'>First name</label></p>";
+       htmlstri+="<input id='first_name1' type='text' name='first_name' value='"+resu.person.first_name+"'>";
        htmlstri+="<p><label for='last_name'>last_name</label></p>";
-       htmlstri+="<input id=last_name type=text name=last_name value="+resu.person.last_name+">";
+       htmlstri+="<input id='last_name1'  type='text' name='last_name' value='"+resu.person.last_name+"'>";
        htmlstri+="<p><input id="+id+" class= 'update' type='button' value='save changes' name='commit'></p>";
+       htmlstri+="</div>";
        $("#l").before(htmlstri)
        $("#l").hide(); 
     })
@@ -71,12 +72,16 @@ $(document).ready(function(){
     $.ajax({
       method : 'PUT',
       url:  '/people/'+id+'/',
-      data: { "person" : {"first_name": $("#first_name").val() , "last_name": $("#last_name").val()} },
+      data: { "person" : {"first_name": $("#first_name1").val() , "last_name": $("#last_name1").val()} },
       dataType: "json"
     }).done(function(re){
-      console.log(re);
-      $( ".edited" ).replaceWith( "re" );
-
+      console.log(re.person.first_name);
+      var htmlStrin = "<td>"+ re.person.first_name+"</td>";
+          htmlS     ="<td>"+re.person.last_name+"</td>"; 
+      $(".firstName"+id).html(htmlStrin);
+      $(".lastName"+id).html(htmlS);
+      $("#l").show();
+      $("#editForm").hide();
     })
   })
 

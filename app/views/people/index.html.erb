@@ -14,12 +14,14 @@
 
   <tbody>
     <% @people.each do |person| %>
+    <% puts person.inspect %>
+
       <tr>
-        <td><%= person.first_name %></td>
-        <td><%= person.last_name %></td>
+        <td class="firstName<%= person.id %>"><%= person.first_name %></td>
+        <td class="lastName<%= person.id %>"><%= person.last_name %></td>
         <td><%= link_to 'Show', "#" ,class: "sg", id: person.id %></td>
         <td><%= link_to 'Edit', "#", class: "edited", id: person.id %></td>
-        <td><%= link_to 'Destroy', "#", class: "button", id: person.id %></td>
+        <td><%= link_to 'Destroy', "#", class: "button" %></td>
       </tr>
     <% end %>
   </tbody>

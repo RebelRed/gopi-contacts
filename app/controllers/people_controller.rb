@@ -1,22 +1,18 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
   
-  def destorys
-    @person = Person.find(params[:id])
-    if delete
-     end 
-  end
+  
   # GET /people
   # GET /people.json
   def index
     @people = Person.all
+    puts @people.inspect
     @person = Person.new
   end
 
   # GET /people/1
   # GET /people/1.json
   def show
-    @person = Person.find(params[:id])
     render :json => {success: "true", person: @person} and return
   end
 
@@ -54,7 +50,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
     #respond_to do |format|
       if @person.update(person_params)
-        render :json => {success: "true"} 
+        render :json => {success: "true", person: @person} and return
         #format.html { redirect_to @person, notice: 'Person was successfully updated.' }
         #format.json { render :show, status: :ok, location: @person }
       #else
