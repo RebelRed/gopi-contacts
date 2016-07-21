@@ -16,7 +16,7 @@ $(document).ready(function(){
   })
   
   $(document).delegate('.button','click',function(event){
-    var id = $(this).parent().parent().find(".sg").attr("id").val();
+    var id = $(this).parent().parent().find(".sg").attr("id");
     $.ajax({
       method : 'DELETE',
       url:  '/people/'+id+'/' ,
